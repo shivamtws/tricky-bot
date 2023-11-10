@@ -5,8 +5,13 @@ import openai
 
 from django.contrib import auth
 from django.utils import timezone
+import os
+from dotenv import load_dotenv
 
-openai_api_key = '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' # Replace YOUR_API_KEY with 
+# Load environment variables from the .env file
+load_dotenv()
+
+openai_api_key = os.getenv('OPENAI_KEY')
 
 def ask_openai(message):
     response = openai.Completion.create(
@@ -17,8 +22,8 @@ def ask_openai(message):
                     max_tokens = 2000,
                     api_key=openai_api_key
                 )
-    answer = response.choices[0].text.strip()
-    return answer
+    description = response.choices[0].text.strip()
+    return description
 
 # Create your views here.
 
